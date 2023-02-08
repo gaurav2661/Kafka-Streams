@@ -34,6 +34,8 @@ public class InvoiceGenerator {
             items.add(item);
         }
         invoice.setDeliveryType(getDeliveryType().get(random.nextInt(2)));
+        AddressGenerator addressGenerator = new AddressGenerator();
+        invoice.setDeliveryAddress(addressGenerator.getDeliveryAddress());
         invoice.setNumberOfItems(itemCount);
         invoice.setInvoiceLineItems(items);
         invoice.setTotalAmount(totalAmount);

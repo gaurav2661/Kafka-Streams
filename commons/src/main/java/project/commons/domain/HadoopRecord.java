@@ -16,12 +16,12 @@ public class HadoopRecord {
     private String deliveryType;
     private String city;
     private String state;
-    private String pinCode;
+    private Integer pinCode;
     private String itemCode;
     private String itemDescription;
-    private Double itemPrice;
+    private Integer itemPrice;
     private Integer itemQty;
-    private Double totalValue;
+    private Integer totalValue;
 
 
 

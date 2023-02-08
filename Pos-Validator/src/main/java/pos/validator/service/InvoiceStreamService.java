@@ -23,11 +23,15 @@ public class InvoiceStreamService {
         KStream<String, PosInvoice> posInvoiceKStream = streamsBuilder.stream(AppConfigs.posTopicName,Consumed.with(Serdes.String(), AppSerdes.PosInvoice()));
         posInvoiceKStream.print(Printed.toSysOut());
 
-
         KStream<String,PosInvoice> posInvoiceKStreamFiltered = posInvoiceKStream.filter((key,value) -> value.getDeliveryType().equalsIgnoreCase(AppConfigs.DELIVERY_TYPE_HOME_DELIVERY));
         posInvoiceKStreamFiltered.to(AppConfigs.shipmentTopicName, Produced.with(AppSerdes.String(),AppSerdes.PosInvoice()));
 
         posInvoiceKStream.filter((key,value) -> value.getCustomerType().equalsIgnoreCase("PRIME"))
                 .mapValues(RecordBuilder::getNotification).print(Printed.toSysOut());
+
+        posInvoiceKStream.mapValues(invoice -> RecordBuilder.getMaskedInvoice(invoice))
+                .flatMapValues(invoice -> RecordBuilder.getHadoopRecords(invoice))
+                .print(Printed.toSysOut());
+
     }
 }
