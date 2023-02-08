@@ -22,7 +22,7 @@ public class InvoiceGenerator {
         invoice.setStoreID(String.valueOf(random.nextInt(9999)));
         invoice.setCashierID(String.valueOf(random.nextInt(9999)));
         invoice.setPosID(String.valueOf(random.nextInt(9999)));
-        invoice.setCustomerCardNo(String.valueOf(random.nextInt(9999999)));
+        invoice.setCustomerCardNo(String.valueOf(random.nextInt(99)));
         invoice.setCustomerType(getCustomerType().get(random.nextInt(2)));
         int itemCount = random.nextInt(10);
         Double totalAmount = 0.0;

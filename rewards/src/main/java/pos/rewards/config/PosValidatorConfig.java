@@ -1,4 +1,4 @@
-package pos.validator.config;
+package pos.rewards.config;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.Serdes;
@@ -21,7 +21,6 @@ public class PosValidatorConfig {
         properties.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG,AppConfigs.bootstrapServers);
         properties.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, AppSerdes.PosInvoice().getClass());
         properties.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
-        properties.put(StreamsConfig.NUM_STREAM_THREADS_CONFIG,2);
         properties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,"earliest");
         return new KafkaStreamsConfiguration(properties);
     }

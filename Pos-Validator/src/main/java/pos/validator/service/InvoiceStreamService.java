@@ -27,11 +27,15 @@ public class InvoiceStreamService {
         posInvoiceKStreamFiltered.to(AppConfigs.shipmentTopicName, Produced.with(AppSerdes.String(),AppSerdes.PosInvoice()));
 
         posInvoiceKStream.filter((key,value) -> value.getCustomerType().equalsIgnoreCase("PRIME"))
-                .mapValues(RecordBuilder::getNotification).print(Printed.toSysOut());
+                .mapValues(value-> RecordBuilder.getNotification(value))
+                .to(AppConfigs.notificationTopic,Produced.with(Serdes.String(),AppSerdes.Notification()));
 
         posInvoiceKStream.mapValues(invoice -> RecordBuilder.getMaskedInvoice(invoice))
                 .flatMapValues(invoice -> RecordBuilder.getHadoopRecords(invoice))
-                .print(Printed.toSysOut());
+                .to(AppConfigs.hadoopTopic,Produced.with(Serdes.String(),AppSerdes.HadoopRecord()));
+
+        streamsBuilder.build();
+
 
     }
 }

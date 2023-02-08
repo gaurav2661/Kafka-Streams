@@ -21,7 +21,7 @@ public class KafkaProducerController {
         for(int i = 0;i<100;i++) {
             InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
             PosInvoice posInvoice = invoiceGenerator.getNextInvoice();
-            ProducerRecord<String, PosInvoice> producerRecord = new ProducerRecord<>("pos-invoice-1",posInvoice.getPosID(),posInvoice);
+            ProducerRecord<String, PosInvoice> producerRecord = new ProducerRecord<>("pos-invoice",posInvoice.getPosID(),posInvoice);
             posInvoiceKafkaTemplate.send(producerRecord);
         }
     }

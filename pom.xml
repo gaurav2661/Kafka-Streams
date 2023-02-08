@@ -18,7 +18,8 @@
 		<module>Pos-Validator</module>
         <module>Pos-Simulator</module>
 		<module>commons</module>
-	</modules>
+        <module>rewards</module>
+    </modules>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -30,17 +31,14 @@
 		<dependency>
 			<groupId>org.apache.kafka</groupId>
 			<artifactId>kafka-streams</artifactId>
-			<version>3.3.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.kafka</groupId>
 			<artifactId>spring-kafka</artifactId>
-			<version>2.9.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>

@@ -11,5 +11,6 @@ public class Notification {
     private String customerCardNo;
     private Double totalAmount;
     private Double earnedLoyaltyPoints;
+    private Double totalLoyaltyPoints;
 
 }
