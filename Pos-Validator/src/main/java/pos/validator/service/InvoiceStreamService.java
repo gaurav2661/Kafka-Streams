@@ -10,14 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pos.validator.RecordBuilder;
 import pos.validator.config.AppConfigs;
-import project.commons.domain.Notification;
 import project.commons.domain.PosInvoice;
 import project.commons.serdes.AppSerdes;
 
 
 @Service
 public class InvoiceStreamService {
-
     @Autowired
     public void streamInvoices(StreamsBuilder streamsBuilder) {
         KStream<String, PosInvoice> posInvoiceKStream = streamsBuilder.stream(AppConfigs.posTopicName,Consumed.with(Serdes.String(), AppSerdes.PosInvoice()));
@@ -27,11 +25,11 @@ public class InvoiceStreamService {
         posInvoiceKStreamFiltered.to(AppConfigs.shipmentTopicName, Produced.with(AppSerdes.String(),AppSerdes.PosInvoice()));
 
         posInvoiceKStream.filter((key,value) -> value.getCustomerType().equalsIgnoreCase("PRIME"))
-                .mapValues(value-> RecordBuilder.getNotification(value))
+                .mapValues(RecordBuilder::getNotification)
                 .to(AppConfigs.notificationTopic,Produced.with(Serdes.String(),AppSerdes.Notification()));
 
-        posInvoiceKStream.mapValues(invoice -> RecordBuilder.getMaskedInvoice(invoice))
-                .flatMapValues(invoice -> RecordBuilder.getHadoopRecords(invoice))
+        posInvoiceKStream.mapValues(RecordBuilder::getMaskedInvoice)
+                .flatMapValues(RecordBuilder::getHadoopRecords)
                 .to(AppConfigs.hadoopTopic,Produced.with(Serdes.String(),AppSerdes.HadoopRecord()));
 
         streamsBuilder.build();

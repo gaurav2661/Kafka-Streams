@@ -5,11 +5,13 @@ import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.kstream.ValueTransformer;
 import org.apache.kafka.streams.processor.ProcessorContext;
 import org.apache.kafka.streams.state.KeyValueStore;
+import org.springframework.stereotype.Service;
 import pos.rewards.config.AppConfigs;
 import project.commons.domain.Notification;
 import project.commons.domain.PosInvoice;
 
 @Slf4j
+@Service
 public class RewardsTransformer implements ValueTransformer<PosInvoice, Notification> {
 
     private KeyValueStore<String,Double> doubleKeyValue ;

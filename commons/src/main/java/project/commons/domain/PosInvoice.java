@@ -6,11 +6,12 @@ import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 @Data
 public class PosInvoice {
-
+    private UUID uuid;
     private String invoiceNumber;
     private Long createdTime;
     private String storeID;

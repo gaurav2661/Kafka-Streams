@@ -2,22 +2,24 @@ package pos.rewards.service;
 
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.StreamsBuilder;
-import org.apache.kafka.streams.kstream.*;
+import org.apache.kafka.streams.kstream.Consumed;
+import org.apache.kafka.streams.kstream.KStream;
+import org.apache.kafka.streams.kstream.Printed;
+import org.apache.kafka.streams.kstream.Produced;
 import org.apache.kafka.streams.state.KeyValueStore;
 import org.apache.kafka.streams.state.StoreBuilder;
 import org.apache.kafka.streams.state.Stores;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import pos.rewards.RewardsTransformer;
 import pos.rewards.config.AppConfigs;
-import project.commons.domain.Notification;
 import project.commons.domain.PosInvoice;
 import project.commons.serdes.AppSerdes;
 
 @Service
 public class InvoiceStreamService {
-    private KeyValueStore<String,Double> doubleKeyValue ;
+    @Autowired
+    private RewardsTransformer rewardsTransformer;
     @Autowired
     public void streamInvoices(StreamsBuilder streamsBuilder) {
         KStream<String, PosInvoice> posInvoiceKStream = streamsBuilder.stream(AppConfigs.posTopicName,Consumed.with(Serdes.String(), AppSerdes.PosInvoice()));

@@ -19,7 +19,8 @@
         <module>Pos-Simulator</module>
 		<module>commons</module>
         <module>rewards</module>
-    </modules>
+		<module>Streaming-Table</module>
+	</modules>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -44,6 +45,11 @@
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 			<version>2.10.1</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>javax.ws.rs-api</artifactId>
+			<version>2.1</version>
 		</dependency>
 	</dependencies>
 
