@@ -23,6 +23,8 @@ public class StreamingTableConfig {
         properties.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
         properties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,"earliest");
         properties.put(StreamsConfig.STATE_DIR_CONFIG,AppConfigs.stateStoreLocation);
+        properties.put(StreamsConfig.COMMIT_INTERVAL_MS_CONFIG,1000);
+        properties.put(StreamsConfig.CACHE_MAX_BYTES_BUFFERING_CONFIG,10*1024*1024L);
         return new KafkaStreamsConfiguration(properties);
     }
 }
