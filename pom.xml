@@ -20,7 +20,8 @@
 		<module>commons</module>
         <module>rewards</module>
 		<module>Streaming-Table</module>
-	</modules>
+        <module>Aggregate</module>
+    </modules>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
